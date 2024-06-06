@@ -9,7 +9,7 @@ const Header = () => {
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
         <Link
           className=" text-[#8a17ff] flex flex-row items-center justify-center"
-          href="#"
+          href="/"
         >
           <span className="sr-only">GenFormAI</span>
           <svg

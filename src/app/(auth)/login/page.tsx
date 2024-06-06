@@ -31,12 +31,13 @@ const Login = () => {
               </a>
 
               <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-                Welcome to Squid 🦑
+                Welcome to GenFormAI 🦑
               </h2>
 
               <p className="mt-4 leading-relaxed text-white/90">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                Say goodbye to tedious form creation. Leverage our AI-powered
+                tool to create customized forms in seconds, enhancing your
+                productivity and efficiency.
               </p>
             </div>
           </section>
@@ -63,12 +64,13 @@ const Login = () => {
                 </a>
 
                 <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                  Welcome to Squid 🦑
+                  Welcome to GenFormAI 🦑
                 </h1>
 
                 <p className="mt-4 leading-relaxed text-gray-500">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                  Say goodbye to tedious form creation. Leverage our AI-powered
+                  tool to create customized forms in seconds, enhancing your
+                  productivity and efficiency.
                 </p>
               </div>
 
