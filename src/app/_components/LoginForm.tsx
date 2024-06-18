@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,31 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { loginInFormSchema } from "@/schemas/LoginFormSchema";
+import { z } from "zod";
 
 export function LoginForm() {
+  const form = useForm<z.infer<typeof loginInFormSchema>>({
+    resolver: zodResolver(loginInFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof loginInFormSchema>) {
+    console.log(values);
+  }
+
   return (
     <Card className="mx-auto max-w-lg mt-5 md:mt-0">
       <CardHeader>
@@ -21,8 +46,53 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="email">Email</Label>
+                  <FormControl>
+                    <Input placeholder="m@example.com" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                    <Link
+                      href="#"
+                      className="ml-auto inline-block text-sm underline"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </div>
+                  <FormControl>
+                    <Input id="password" type="password" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </Form>
         <div className="grid gap-4">
-          <div className="grid gap-2">
+          {/* <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
@@ -39,11 +109,9 @@ export function LoginForm() {
               </Link>
             </div>
             <Input id="password" type="password" required />
-          </div>
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-          <Button variant="outline" className="w-full">
+          </div> */}
+
+          <Button variant="outline" className="w-full mt-4">
             <svg
               className="w-4 h-4 me-2"
               aria-hidden="true"
@@ -60,6 +128,7 @@ export function LoginForm() {
             Login with Google
           </Button>
         </div>
+
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="underline">
