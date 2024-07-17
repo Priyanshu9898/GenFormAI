@@ -19,7 +19,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useRouter } from "next/navigation";
 
 import { usePathname } from "next/navigation";
@@ -191,76 +196,83 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       fill="currentColor"
                     />
                   </svg>
-                  <Link
-                    href="/dashboard"
-                    className={`flex mt-6 items-center gap-3 rounded-lg px-3 py-2 transition-all ${
-                      pathname === "/dashboard"
-                        ? "bg-primary text-white"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    <Image
-                      src={"/Images/Sidebar/myForms2.png"}
-                      alt="MyForms"
-                      width={100}
-                      height={100}
-                      className="h-6 w-6"
-                    />
-                    My Forms
-                  </Link>
-                  <Link
-                    href="/dashboard/responses"
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
-                      pathname === "/dashboard/responses"
-                        ? "bg-primary text-white"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    <Image
-                      src={"/Images/Sidebar/responses.png"}
-                      alt="responses"
-                      width={100}
-                      height={100}
-                      className="h-6 w-6"
-                    />
-                    Responses
-                  </Link>
+                  <SheetClose asChild>
+                    <Link
+                      href="/dashboard"
+                      className={`flex mt-6 items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+                        pathname === "/dashboard"
+                          ? "bg-primary text-white"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Image
+                        src={"/Images/Sidebar/myForms2.png"}
+                        alt="MyForms"
+                        width={100}
+                        height={100}
+                        className="h-6 w-6"
+                      />
+                      My Forms
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/dashboard/responses"
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+                        pathname === "/dashboard/responses"
+                          ? "bg-primary text-white"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Image
+                        src={"/Images/Sidebar/responses.png"}
+                        alt="responses"
+                        width={100}
+                        height={100}
+                        className="h-6 w-6"
+                      />
+                      Responses
+                    </Link>
+                  </SheetClose>
 
-                  <Link
-                    href="/dashboard/analytics"
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
-                      pathname === "/dashboard/analytics"
-                        ? "bg-primary text-white"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    <Image
-                      src={"/Images/Sidebar/analytics.png"}
-                      alt="analytics"
-                      width={100}
-                      height={100}
-                      className="h-6 w-6"
-                    />
-                    Analytics
-                  </Link>
-
-                  <Link
-                    href="/dashboard/upgrade"
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
-                      pathname === "/dashboard/upgrade"
-                        ? "bg-primary text-white"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    <Image
-                      src={"/Images/Sidebar/upgrade.png"}
-                      alt="upgrade"
-                      width={100}
-                      height={100}
-                      className="h-6 w-6"
-                    />
-                    Upgrade
-                  </Link>
+                  <SheetClose asChild>
+                    <Link
+                      href="/dashboard/analytics"
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+                        pathname === "/dashboard/analytics"
+                          ? "bg-primary text-white"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Image
+                        src={"/Images/Sidebar/analytics.png"}
+                        alt="analytics"
+                        width={100}
+                        height={100}
+                        className="h-6 w-6"
+                      />
+                      Analytics
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/dashboard/upgrade"
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+                        pathname === "/dashboard/upgrade"
+                          ? "bg-primary text-white"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Image
+                        src={"/Images/Sidebar/upgrade.png"}
+                        alt="upgrade"
+                        width={100}
+                        height={100}
+                        className="h-6 w-6"
+                      />
+                      Upgrade
+                    </Link>
+                  </SheetClose>
                 </nav>
                 <div className="mt-auto">
                   <Card>
