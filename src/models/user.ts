@@ -1,13 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface User extends Document {
+export interface UserModelType extends Document {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
+  role: string;
+  authProviderId: string;
+  forms: mongoose.Schema.Types.ObjectId[];
 }
 
-const UserSchema: Schema<User> = new mongoose.Schema(
+const UserSchema: Schema<UserModelType> = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -26,6 +29,19 @@ const UserSchema: Schema<User> = new mongoose.Schema(
       type: String,
       required: [true, "Please enter a valid last name."],
     },
+    role: {
+      type: String,
+      default: "user",
+    },
+    authProviderId: {
+      type: String,
+    },
+    forms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Form",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -33,7 +49,7 @@ const UserSchema: Schema<User> = new mongoose.Schema(
 );
 
 const UserModel =
-  (mongoose.models.User<User> as mongoose.Model<User>) ||
-  mongoose.model<User>("User", UserSchema);
+  (mongoose.models.User<UserModelType> as mongoose.Model<UserModelType>) ||
+  mongoose.model<UserModelType>("User", UserSchema);
 
 export default UserModel;

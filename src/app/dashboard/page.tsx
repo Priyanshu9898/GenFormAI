@@ -29,6 +29,12 @@ const DashboardPage = () => {
 
   const handleSubmitForm = async () => {
     setLoading(true);
+
+    if (!userInput) {
+      console.log("Please enter some text");
+      setLoading(false);
+      return;
+    }
     console.log("handleSubmitForm", userInput);
 
     console.log("Description: " + userInput + PROMPT);
@@ -76,7 +82,7 @@ const DashboardPage = () => {
               </DialogClose>
 
               <Button
-                className="mb-2 md:mb-0"
+                className="mb-2 md:mb-0 disabled:opacity-50"
                 disabled={loading}
                 onClick={handleSubmitForm}
               >
