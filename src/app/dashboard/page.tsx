@@ -17,10 +17,12 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { AiChatSession } from "@/config/AiModel";
 import axios from "axios";
 import { showToast } from "@/utils/ToastMessage";
+import { useRouter } from "next/navigation";
 
 const DashboardPage = () => {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const PROMPT =
     "On the basis of description please give form in json format with form title, form subheading, Form field, form name, placeholder name, and form label, in Json format.";
@@ -49,7 +51,11 @@ const DashboardPage = () => {
         });
 
         console.log(response.data);
-        showToast("Form Created Successfully", "success");
+        showToast(response.data.message, "success");
+
+        const formId = response.data.form._id;
+
+        router.push(`/edit-form/${formId}`);
 
         setLoading(false);
       }
