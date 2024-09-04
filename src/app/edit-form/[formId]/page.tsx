@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 
 const EditForm = ({ params }: { params: { formId: string } }) => {
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState(null);
 
   const fetchFormData = async () => {
     setLoading(true);
@@ -16,6 +17,8 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
       });
 
       console.log(response.data);
+
+      setFormData(JSON.parse(response.data.formData));
 
       showToast(response.data.message, "success");
     } catch (error) {
@@ -30,6 +33,7 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
     fetchFormData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return <div>{params.formId}</div>;
 };
 
