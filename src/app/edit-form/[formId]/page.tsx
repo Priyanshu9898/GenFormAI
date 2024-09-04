@@ -32,6 +32,7 @@ import {
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { logout } from "@/action/Logout";
+import FormUI from "../_components/FormUI";
 
 const EditForm = ({ params }: { params: { formId: string } }) => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,7 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
         formId: params.formId,
       });
 
-      // console.log(response.data.formData, typeof response.data.formData);
+      console.log(response.data.formData, typeof response.data.formData);
 
       setFormData(response.data.formData);
 
@@ -169,10 +170,10 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
               </SheetContent>
             </Sheet>
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:py-4 h-screen">
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 w-full lg:py-4 h-screen items-center justify-center">
             {/* Main content goes here */}
-            <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-lg shadow-md border">
-              formArea
+            <div className="flex flex-col items-center justify-center w-full h-full px-4 py-4 bg-gray-50 rounded-lg shadow-md border">
+              <FormUI jsonForm={formData} />
             </div>
           </main>
         </div>

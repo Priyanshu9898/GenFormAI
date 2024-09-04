@@ -25,7 +25,7 @@ const DashboardPage = () => {
   const router = useRouter();
 
   const PROMPT =
-    "On the basis of description please give form in json format with form title, form subheading, Form field, form name, placeholder name, and form label, in Json format.";
+    "On the basis of description please give form in json format with form title, form subheading, Form field, field name, field Title, field type, placeholder name, and label, required in Json format.";
 
   const handleUserInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserInput(e.target.value);
