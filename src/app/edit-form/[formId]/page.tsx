@@ -5,7 +5,7 @@ import axios from "axios";
 import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { ArrowLeft, Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -103,8 +103,14 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
               </Link>
             </div>
             <div className="flex-1 px-4 py-3">
-              <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-md border">
-                Controller
+              <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-lg shadow-md border">
+                <h2
+                  className="flex gap-2 items-start hover:font-bold cursor-pointer"
+                  onClick={() => router.back()}
+                >
+                  <ArrowLeft />
+                  Back
+                </h2>
               </div>
             </div>
             {/* <div className="mt-auto p-4"></div> */}
@@ -152,13 +158,22 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
 
               <SheetContent side="left" className="flex flex-col">
                 <nav className="grid gap-2 text-lg font-medium">
-                  Mobile Controller
+                  <h2
+                    className="flex gap-2 items-start hover:font-bold cursor-pointer"
+                    onClick={() => router.back()}
+                  >
+                    <ArrowLeft />
+                    Back
+                  </h2>
                 </nav>
               </SheetContent>
             </Sheet>
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:py-4 h-screen">
             {/* Main content goes here */}
+            <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-lg shadow-md border">
+              formArea
+            </div>
           </main>
         </div>
       </div>
