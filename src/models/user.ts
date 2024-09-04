@@ -49,7 +49,7 @@ const UserSchema: Schema<UserModelType> = new mongoose.Schema(
 );
 
 const UserModel =
-  (mongoose.models.User<UserModelType> as mongoose.Model<UserModelType>) ||
+  (mongoose.models?.User<UserModelType> as mongoose.Model<UserModelType>) ||
   mongoose.model<UserModelType>("User", UserSchema);
 
 export default UserModel;

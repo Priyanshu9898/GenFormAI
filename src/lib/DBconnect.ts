@@ -1,4 +1,3 @@
-import { connect } from "http2";
 import mongoose from "mongoose";
 
 type connectionObject = {
@@ -18,12 +17,20 @@ const connectDB = async (): Promise<void> => {
       throw new Error("MongoURI is missing");
     }
 
-    const db = await mongoose.connect(process.env.MONGO_URI || "", {});
+    console.log(
+      `Attempting to connect to MongoDB with URI: ${process.env.MONGO_URI}`
+    );
+
+    const db = await mongoose.connect(process.env.MONGO_URI, {
+      appName: "Cluster0",
+      bufferCommands: false,
+    });
 
     connection.isConnected = db.connections[0].readyState === 1;
 
     console.log("Connected to DB");
   } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
     process.exit(1);
   }
 };

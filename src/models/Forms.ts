@@ -23,7 +23,7 @@ const formSchema: Schema<FormModelType> = new mongoose.Schema(
 );
 
 const formModel =
-  (mongoose.models.formModel<FormModelType> as mongoose.Model<FormModelType>) ||
-  mongoose.model("Form", formSchema)<FormModelType>;
+  (mongoose.models?.Forms<FormModelType> as mongoose.Model<FormModelType>) ||
+  mongoose.model("Forms", formSchema)<FormModelType>;
 
 export default formModel;
