@@ -29,9 +29,27 @@ import { useRouter } from "next/navigation";
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import axios from "axios";
+import { useState } from "react";
+import { logout } from "@/action/Logout";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const [user, setUser] = useState(null);
+
+  const getUserDetails = async () => {
+    const res = await axios.get("/api/users/me");
+    console.log(res.data);
+    setUser(res.data.data);
+  };
+
+  const userLogout = async () => {
+    await logout();
+    router.push("/login");
+    router.refresh();
+  };
 
   return (
     <>
@@ -170,7 +188,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               </svg>
               <h3 className="ml-4 font-bold text-xl">GenFormAI</h3>
             </Link>
-            <div className="w-full flex-1"></div>
+            <div className="ml-auto">
+              <Button
+                onClick={userLogout}
+                className="block rounded-md bg-[#8a17ff] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-bg-purple-600"
+              >
+                Logout
+              </Button>
+            </div>
             <Sheet>
               <SheetTrigger asChild>
                 <Button

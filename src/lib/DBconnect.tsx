@@ -21,10 +21,7 @@ const connectDB = async (): Promise<void> => {
       `Attempting to connect to MongoDB with URI: ${process.env.MONGO_URI}`
     );
 
-    const db = await mongoose.connect(process.env.MONGO_URI, {
-      appName: "Cluster0",
-      bufferCommands: false,
-    });
+    const db = await mongoose.connect(process.env.MONGO_URI, {});
 
     connection.isConnected = db.connections[0].readyState === 1;
 

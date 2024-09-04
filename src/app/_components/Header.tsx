@@ -1,9 +1,24 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Header = () => {
+  const [user, setUser] = useState(null);
+
+  const getUserDetails = async () => {
+    const res = await axios.get("/api/auth/me");
+    console.log(res.data);
+    setUser(res.data.data);
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
   return (
     <header className="bg-white">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -31,12 +46,25 @@ const Header = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <Link
-                href="/login"
-                className="block rounded-md bg-[#8a17ff] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-bg-purple-600"
-              >
-                Login
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    href={"/dashboard"}
+                    className="block rounded-md bg-[#8a17ff] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-bg-purple-600"
+                  >
+                    Dashboard
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block rounded-md bg-[#8a17ff] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-bg-purple-600"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

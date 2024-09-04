@@ -1,42 +1,23 @@
-import { auth } from "@/auth";
-import { getToken, GetTokenParams } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-export type {
-  Account,
-  DefaultSession,
-  Profile,
-  Session,
-  User,
-} from "@auth/core/types";
 
-// Create a custom type omitting the 'salt' property
-type GetTokenParamsWithoutSalt = Omit<GetTokenParams<false>, "salt">;
+export async function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
 
-export default auth(async (req: NextRequest) => {
-  // req.auth
-  const token = await getToken({
-    req,
-    secret: process.env.AUTH_SECRET || "",
-  } as any);
+  const isPublicPath = path === "/login" || path === "/register";
 
-  const url = req.nextUrl;
+  const token = request.cookies.get("token")?.value || "";
 
-  console.log(token);
-
-  if (token) {
-    if (
-      url.pathname.startsWith("/login") ||
-      url.pathname.startsWith("register")
-    ) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
-    }
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
   }
 
-  if (!token && url.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/login", req.url));
+  if (!isPublicPath && !token) {
+    return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
-});
+}
 
 export const config = {
+  runtime: "nodejs",
   matcher: ["/dashboard/:path*", "/login", "/register"],
 };

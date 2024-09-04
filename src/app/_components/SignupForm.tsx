@@ -28,6 +28,7 @@ import { showToast } from "@/utils/ToastMessage";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import axios from "axios";
 
 export function SignupForm() {
   const router = useRouter();
@@ -48,21 +49,16 @@ export function SignupForm() {
     const { firstName, lastName, email, password } = values;
 
     try {
-      const response = await registerUser({
-        firstName,
-        lastName,
-        email,
-        password,
+      setLoading(true);
+      const response = await axios.post("/api/auth/register", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
       });
-
-      if (response && response.success === true) {
-        showToast(response.message, "success");
-        router.push("/login");
-      } else if (response) {
-        showToast(response.message, "error");
-      } else {
-        showToast("An unexpected error occurred. Please try again.", "error");
-      }
+      console.log("Signup success", response.data);
+      showToast("User Registered Successfully", "success");
+      router.push("/login");
     } catch (error) {
       showToast("An unexpected error occurred.", "error");
       console.error(error);
@@ -70,6 +66,30 @@ export function SignupForm() {
       setLoading(false);
       form.reset();
     }
+
+    // try {
+    //   const response = await registerUser({
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     password,
+    //   });
+
+    //   if (response && response.success === true) {
+    //     showToast(response.message, "success");
+    //     router.push("/login");
+    //   } else if (response) {
+    //     showToast(response.message, "error");
+    //   } else {
+    //     showToast("An unexpected error occurred. Please try again.", "error");
+    //   }
+    // } catch (error) {
+    //   showToast("An unexpected error occurred.", "error");
+    //   console.error(error);
+    // } finally {
+    //   setLoading(false);
+    //   form.reset();
+    // }
   }
 
   const googleRegister = async () => {

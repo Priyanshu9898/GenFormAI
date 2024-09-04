@@ -28,6 +28,7 @@ import { useState } from "react";
 import { showToast } from "@/utils/ToastMessage";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export function LoginForm() {
   const router = useRouter();
@@ -44,26 +45,44 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof loginInFormSchema>) {
     setLoading(true);
-
     const { email, password } = values;
 
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-      callbackUrl: "/",
-    }).then((response) => {
-      if (response?.error) {
-        showToast(response.error, "error");
-      } else {
-        showToast("Logged in successfully", "success");
-        router.push("/dashboard");
-      }
-    });
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/auth/login", {
+        email: email,
+        password: password,
+      });
+      console.log("User LoggedIn successfully", response.data);
+      showToast("User LoggedIn successfully", "success");
 
-    form.reset();
+      router.push("/dashboard");
+    } catch (error) {
+      showToast("An unexpected error occurred.", "error");
+      console.error(error);
+    } finally {
+      setLoading(false);
+      form.reset();
+      router.refresh();
+    }
 
-    setLoading(false);
+    // setLoading(true);
+    // const { email, password } = values;
+    // await signIn("credentials", {
+    //   email,
+    //   password,
+    //   redirect: false,
+    //   callbackUrl: "/",
+    // }).then((response) => {
+    //   if (response?.error) {
+    //     showToast(response.error, "error");
+    //   } else {
+    //     showToast("Logged in successfully", "success");
+    //     router.push("/dashboard");
+    //   }
+    // });
+    // form.reset();
+    // setLoading(false);
   }
 
   const googleLogin = async () => {
