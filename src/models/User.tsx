@@ -7,7 +7,7 @@ export interface UserModelType extends Document {
   lastName: string;
   role: string;
   authProviderId: string;
-  forms: mongoose.Schema.Types.ObjectId[];
+  forms: Schema.Types.ObjectId[];
 }
 
 const UserSchema: Schema<UserModelType> = new mongoose.Schema(
@@ -38,7 +38,7 @@ const UserSchema: Schema<UserModelType> = new mongoose.Schema(
     },
     forms: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Form",
       },
     ],
