@@ -50,7 +50,7 @@ const DashboardPage = () => {
           jsonForm: result.response.text(),
         });
 
-        console.log(response.data);
+        // console.log(response.data);
         showToast(response.data.message, "success");
 
         const formId = response.data.form._id;
