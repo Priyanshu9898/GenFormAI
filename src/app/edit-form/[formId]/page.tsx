@@ -40,6 +40,9 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [updateTrigger, setUpdateTrigger] = useState(null);
+
+  const formID = params.formId;
 
   const fetchFormData = async () => {
     setLoading(true);
@@ -80,8 +83,8 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
 
   return (
     <>
-      <div className="grid min-h-screen w-full md:grid-cols-[280px_1fr] lg:grid-cols-[350px_1fr]">
-        <div className="hidden border-none md:block">
+      <div className="grid min-h-screen w-full md:grid-cols-2 lg:grid-cols-[350px_1fr]">
+        <div className="hidden border-none md:block h-screen">
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link
@@ -170,10 +173,29 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
               </SheetContent>
             </Sheet>
           </header>
+          <div className="sidebar lg:hidden w-full ">
+            <div className="flex-1 px-4 py-3 ">
+              <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-lg shadow-md border">
+                <h2
+                  className="flex gap-2 items-start hover:font-bold cursor-pointer"
+                  onClick={() => router.back()}
+                >
+                  <ArrowLeft />
+                  Back
+                </h2>
+              </div>
+            </div>
+          </div>
           <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 w-full lg:py-4 h-screen items-center justify-center">
             {/* Main content goes here */}
             <div className="flex flex-col items-center justify-center w-full h-full px-4 py-4 bg-gray-50 rounded-lg shadow-md border">
-              <FormUI jsonForm={formData} />
+              <FormUI
+                jsonForm={formData}
+                setFormData={setFormData}
+                updateTrigger={updateTrigger}
+                setUpdateTrigger={setUpdateTrigger}
+                formId={formID}
+              />
             </div>
           </main>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,14 +18,18 @@ import { AiChatSession } from "@/config/AiModel";
 import axios from "axios";
 import { showToast } from "@/utils/ToastMessage";
 import { useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import FormCard from "./_components/FormCard";
 
 const DashboardPage = () => {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [forms, setForms] = useState([]);
 
   const PROMPT =
-    "On the basis of description please give form in json format with form title, form subheading, Form field, field name, field Title, field type, placeholder name, and label, required in Json format.";
+    "On the basis of description please give form in json format with form title, form subheading, Form field, field name, field Title, field type, placeholder, and label, required in Json format.";
 
   const handleUserInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserInput(e.target.value);
@@ -67,6 +71,18 @@ const DashboardPage = () => {
       setLoading(false);
     }
   };
+
+  const fetchForms = async () => {
+    try {
+      const response = await axios.get("/api/user/fetchForms");
+      console.log(response.data);
+      setForms(response.data.forms);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchForms();
+  }, []);
 
   return (
     <>
@@ -136,6 +152,26 @@ const DashboardPage = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        {/* <Card x-chunk="dashboard-01-chunk-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">$45,231.89</div>
+            <p className="text-xs text-muted-foreground">
+              +20.1% from last month
+            </p>
+          </CardContent>
+        </Card> */}
+
+        {forms &&
+          forms.map((form: any, index: number) => (
+            <FormCard key={index} formData={form} />
+          ))}
       </div>
     </>
   );
