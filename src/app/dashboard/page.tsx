@@ -27,6 +27,7 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [forms, setForms] = useState([]);
+  const [fetchFormsTrigger, setFetchFormsTrigger] = useState();
 
   const PROMPT =
     "On the basis of description please give form in json format with form title, form subheading, Form field, field name, field Title, field type, placeholder, and label, required in Json format.";
@@ -75,14 +76,14 @@ const DashboardPage = () => {
   const fetchForms = async () => {
     try {
       const response = await axios.get("/api/user/fetchForms");
-      console.log(response.data);
+      // console.log(response.data);
       setForms(response.data.forms);
     } catch (error) {}
   };
 
   useEffect(() => {
     fetchForms();
-  }, []);
+  }, [fetchFormsTrigger]);
 
   return (
     <>
@@ -170,7 +171,11 @@ const DashboardPage = () => {
 
         {forms &&
           forms.map((form: any, index: number) => (
-            <FormCard key={index} formData={form} />
+            <FormCard
+              key={index}
+              formData={form}
+              setFetchFormsTrigger={setFetchFormsTrigger}
+            />
           ))}
       </div>
     </>
