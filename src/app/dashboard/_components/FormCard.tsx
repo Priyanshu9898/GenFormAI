@@ -45,7 +45,7 @@ const FormCard = ({
 
       setFetchFormsTrigger(Date.now());
 
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       showToast("Error deleting form", "error");
     }

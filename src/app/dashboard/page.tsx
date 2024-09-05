@@ -21,6 +21,8 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import FormCard from "./_components/FormCard";
+import { Skeleton } from "@/components/ui/skeleton";
+import FormSkeletonCard from "./_components/FormSkeletonCard";
 
 const DashboardPage = () => {
   const [userInput, setUserInput] = useState("");
@@ -28,6 +30,7 @@ const DashboardPage = () => {
   const router = useRouter();
   const [forms, setForms] = useState([]);
   const [fetchFormsTrigger, setFetchFormsTrigger] = useState();
+  const [formLoading, setFormLoading] = useState(false);
 
   const PROMPT =
     "On the basis of description please give form in json format with form title, form subheading, Form field, field name, field Title, field type, placeholder, and label, required in Json format.";
@@ -75,10 +78,15 @@ const DashboardPage = () => {
 
   const fetchForms = async () => {
     try {
+      setFormLoading(true);
       const response = await axios.get("/api/user/fetchForms");
       // console.log(response.data);
       setForms(response.data.forms);
-    } catch (error) {}
+    } catch (error) {
+      setFormLoading(false);
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -169,14 +177,21 @@ const DashboardPage = () => {
           </CardContent>
         </Card> */}
 
-        {forms &&
+        {formLoading ? (
+          <>
+            <FormSkeletonCard />
+          </>
+        ) : forms && forms.length > 0 ? (
           forms.map((form: any, index: number) => (
             <FormCard
               key={index}
               formData={form}
               setFetchFormsTrigger={setFetchFormsTrigger}
             />
-          ))}
+          ))
+        ) : (
+          <h1>No Forms Found</h1>
+        )}
       </div>
     </>
   );
