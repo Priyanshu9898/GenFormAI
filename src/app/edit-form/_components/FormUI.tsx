@@ -51,9 +51,9 @@ const FormUI = ({
         jsonFormData: updatedFormDataFinal,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
-      showToast("Form Updated Successfully", "success");
+      showToast("FormData Updated Successfully", "success");
     } catch (error: any) {
       console.error(error);
       showToast(error.message, "error");
