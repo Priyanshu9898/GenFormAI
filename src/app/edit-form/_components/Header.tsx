@@ -49,7 +49,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Hamburger Menu */}
-      <Sheet>
+      {/* <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <Menu className="h-5 w-5" />
@@ -68,7 +68,7 @@ const Navbar = () => {
             </h2>
           </nav>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
     </header>
   );
 };
