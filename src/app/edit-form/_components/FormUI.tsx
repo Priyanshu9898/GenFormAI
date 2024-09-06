@@ -44,12 +44,11 @@ const FormUI = ({
   setFormData: any;
   formId: string;
 }) => {
-  console.log(formId);
-  const updateForm = async () => {
+  const updateForm = async (updatedFormDataFinal: any) => {
     try {
       const response = await axios.put("/api/user/updateForm", {
         formId: formId,
-        jsonFormData: jsonForm,
+        jsonFormData: updatedFormDataFinal,
       });
 
       console.log(response.data);
@@ -73,7 +72,7 @@ const FormUI = ({
       setFormData(updatedFormData);
       setUpdateTrigger(Date.now());
 
-      await updateForm();
+      await updateForm(updatedFormData);
     } else {
       console.error("jsonForm or jsonForm[index] is undefined");
     }
@@ -95,7 +94,7 @@ const FormUI = ({
       setFormData(jsonForm);
       setUpdateTrigger(Date.now());
 
-      await updateForm();
+      await updateForm(jsonForm);
     } else {
       console.error("jsonForm or jsonForm[index] is undefined");
     }

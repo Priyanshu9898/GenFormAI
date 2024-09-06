@@ -19,11 +19,7 @@ export const PUT = async (req: NextRequest) => {
 
     const { formId, jsonFormData } = await req.json();
 
-    console.log(jsonFormData);
-
-    // const formId = jsonFormData?._id;
-
-    console.log(formId);
+    // console.log(jsonFormData);
 
     const isFormPresent = await formModel.findById(formId);
 
@@ -31,7 +27,7 @@ export const PUT = async (req: NextRequest) => {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 
-    isFormPresent.jsonForm = jsonFormData;
+    isFormPresent.jsonForm = jsonFormData["jsonForm"];
 
     await isFormPresent.save();
 
