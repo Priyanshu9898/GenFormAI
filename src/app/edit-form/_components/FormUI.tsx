@@ -37,12 +37,14 @@ const FormUI = ({
   setUpdateTrigger,
   setFormData,
   formId,
+  selectedTheme,
 }: {
   jsonForm: any;
   updateTrigger: any;
   setUpdateTrigger: any;
   setFormData: any;
   formId: string;
+  selectedTheme: string;
 }) => {
   const updateForm = async (updatedFormDataFinal: any) => {
     try {
@@ -108,6 +110,7 @@ const FormUI = ({
       <div
         className="flex-1 border p-5 w-full lg:w-[600px]"
         key={jsonForm?.title}
+        data-theme={selectedTheme}
       >
         <h1 className="text-center font-bold text-2xl">{jsonForm?.title}</h1>
 
@@ -145,7 +148,7 @@ const FormUI = ({
                 ) : null}
 
                 {field?.fieldType === "checkbox" ? (
-                  <div className="flex-grow flex items-center space-x-2">
+                  <div className="flex-grow flex items-center space-x-2 bg-transparent">
                     <Checkbox id={field?.fieldTitle} />
                     <label
                       htmlFor={field?.fieldTitle}
@@ -163,7 +166,7 @@ const FormUI = ({
                 field?.fieldType !== "checkboxGroup" &&
                 field?.fieldType !== "textarea" &&
                 field?.fieldType !== "checkbox" ? (
-                  <div className="flex-grow flex flex-col gap-y-2 items-start justify-center">
+                  <div className="flex-grow flex flex-col gap-y-2 items-start justify-center  bg-transparent">
                     <Label className="">{field.label}</Label>
                     <Input
                       type={field?.fieldType}
@@ -184,7 +187,7 @@ const FormUI = ({
                         <Checkbox id={index} />
                         <label
                           htmlFor="terms"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          className=" bg-transparent text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
                           {option}
                         </label>
@@ -194,7 +197,7 @@ const FormUI = ({
                 ) : null}
 
                 {field?.fieldType === "radio" ? (
-                  <div className="flex-grow flex flex-col gap-y-2">
+                  <div className="flex-grow flex flex-col gap-y-2  bg-transparent">
                     <Label className="">{field.label}</Label>
                     <RadioGroup defaultValue={field?.options[0]?.value}>
                       {field.options.map((option: any, index: string) => (
@@ -216,7 +219,7 @@ const FormUI = ({
                 ) : null}
 
                 {field?.fieldType === "textarea" ? (
-                  <div className="flex-grow flex flex-col gap-y-2">
+                  <div className="flex-grow flex flex-col gap-y-2  bg-transparent">
                     <Label className="">{field.label}</Label>
                     <Textarea
                       name={field?.fieldName}

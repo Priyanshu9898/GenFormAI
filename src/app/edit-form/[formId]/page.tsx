@@ -7,12 +7,18 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import FormUI from "../_components/FormUI";
 import Navbar from "../_components/Header";
+import ThemeController from "../_components/ThemeController";
 
 const EditForm = ({ params }: { params: { formId: string } }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(null);
   const router = useRouter();
   const [updateTrigger, setUpdateTrigger] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState("light");
+
+  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTheme(e.target.value);
+  };
 
   const formID = params.formId;
 
@@ -34,6 +40,7 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
 
   useEffect(() => {
     fetchFormData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -57,8 +64,12 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
           <div className="flex flex-col gap-2 border-none h-screen">
             <div className="flex h-full max-h-screen flex-col gap-2">
               <div className="flex-1 w-full items-center justify-center px-4 py-4 bg-gray-50 h-full rounded-lg shadow-md border">
-                <h3 className="text-lg font-semibold">Section 1 Content</h3>
+                {/* <h3 className="text-lg font-semibold">Section 1 Content</h3> */}
                 {/* You can add your Section 1 content here */}
+                <ThemeController
+                  selectedTheme={selectedTheme}
+                  setSelectedTheme={setSelectedTheme}
+                />
               </div>
             </div>
           </div>
@@ -74,6 +85,7 @@ const EditForm = ({ params }: { params: { formId: string } }) => {
                   updateTrigger={updateTrigger}
                   setUpdateTrigger={setUpdateTrigger}
                   formId={formID}
+                  selectedTheme={selectedTheme}
                 />
               </div>
             </main>
